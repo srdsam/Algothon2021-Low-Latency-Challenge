@@ -1,6 +1,5 @@
 import numpy as np
-import pandas as pd
-import sys
+from sys import stdin
 
 def moving_average(series, n):
     return np.average(series[-n:])
@@ -12,10 +11,10 @@ def ma_predictor(series):
     else:
         return 0
 
-
-csv = pd.read_csv('data_ngrams.csv')['LogReturns']
-
-for index, row in csv.iterrows():
-    data = np.asarray(list(row), dtype=np.float64)
-    val = ma_predictor(data)
+# classify terminal input
+for line in stdin:
+    if line == '': 
+        break
+    d=[float(x) for x in line.split(',')]
+    val=ma_predictor(d)
     print(val)
